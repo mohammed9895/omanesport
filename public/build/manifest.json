@@ -4,6 +4,16 @@
     "src": "resources/css/app.css",
     "isEntry": true
   },
+  "resources/css/filament/club/theme.css": {
+    "file": "assets/theme--C8bum5w.css",
+    "src": "resources/css/filament/club/theme.css",
+    "isEntry": true
+  },
+  "resources/css/filament/gamer/theme.css": {
+    "file": "assets/theme-CwxOWv2O.css",
+    "src": "resources/css/filament/gamer/theme.css",
+    "isEntry": true
+  },
   "resources/js/app.js": {
     "file": "assets/app-l0sNRNKZ.js",
     "name": "app",
