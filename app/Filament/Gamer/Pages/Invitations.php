@@ -23,10 +23,17 @@ class Invitations extends Page implements HasTable
 
     public static function getNavigationBadge(): ?string
     {
+        $gamer = auth()->user()->gamer;
+
+        if (!$gamer) {
+            return 0;
+        }
+
         $count = \App\Models\Member::query()
-            ->where('gamer_id', auth()->user()->gamer->id)
+            ->where('gamer_id', $gamer->id)
             ->where('status', MemberStatus::Waiting)
             ->count();
+
         return $count;
     }
 
