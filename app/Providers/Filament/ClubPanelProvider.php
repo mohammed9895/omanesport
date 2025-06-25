@@ -58,6 +58,7 @@ class ClubPanelProvider extends PanelProvider
                  EnsureUserHasClub::class,
             ])
             ->viteTheme('resources/css/filament/club/theme.css')
+            ->registration()
             ->authMiddleware([
                 Authenticate::class,
             ]);
