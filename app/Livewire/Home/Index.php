@@ -16,7 +16,7 @@ class Index extends Component
             ->take(3)
             ->get();
 
-        return view('livewire.home.index', [
+        return view('livewire.home.index-2', [
             'events' => $events,
         ]);
     }
