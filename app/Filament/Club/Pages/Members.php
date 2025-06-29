@@ -5,6 +5,7 @@ namespace App\Filament\Club\Pages;
 use App\Models\Gamer;
 use App\Models\Member;
 use Filament\Forms\Components\Select;
+use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
@@ -46,6 +47,15 @@ class Members extends Page implements HasTable
                         $member->club_id = auth()->user()->club->id;
                         $member->role = $data['role'];
                         $member->save();
+
+                        $gamer = Gamer::find($data['gamerId']);
+
+                        dispatch(new \App\Jobs\SendInvitationEmail(auth()->user()->club, $gamer));
+
+                        Notification::make()
+                            ->title('Member Invited')
+                            ->success()
+                            ->send();
                     })
             ])
             ->columns([

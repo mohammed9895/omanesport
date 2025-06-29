@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Club;
 
+use App\Jobs\SendClubWelcomeEmail;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
@@ -43,6 +44,11 @@ class Onboarding extends Component implements HasForms
                            ->required()
                            ->maxLength(5000)
                            ->columnSpanFull(),
+                       TextInput::make('username')
+                           ->prefix(env('APP_URL') . '/gamer/')
+                           ->required()
+                           ->unique(column: 'username')
+                           ->label('Username'),
                        FileUpload::make('logo')
                            ->label('Club Logo')
                            ->image()
@@ -113,6 +119,8 @@ class Onboarding extends Component implements HasForms
             $data // Fillable fields from form
         );
 
+
+        SendClubWelcomeEmail::dispatch($user);
 
         redirect()->route('filament.club.pages.dashboard'); // Change route as needed
     }

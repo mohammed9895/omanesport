@@ -67,6 +67,7 @@ class Invitations extends Page implements HasTable
                     ->action(function (\App\Models\Member $member): void {
                         $member->status = MemberStatus::Accepted;
                         $member->save();
+                        dispatch(new \App\Jobs\InvitationStatusUpdateEmail($member->club, $member));
                         Notification::make()
                             ->title('Invitation Accepted')
                             ->success()
@@ -79,6 +80,8 @@ class Invitations extends Page implements HasTable
                     ->action(function (\App\Models\Member $member): void {
                         $member->status = MemberStatus::Rejected;
                         $member->save();
+
+                        dispatch(new \App\Jobs\InvitationStatusUpdateEmail($member->club, $member));
                         Notification::make()
                             ->title('Invitation Rejected')
                             ->success()

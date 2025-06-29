@@ -79,7 +79,7 @@ class ParticipantResource extends Resource
                 Tables\Actions\Action::make('view')
                     ->label('View Details')
                     ->color('success')
-                    ->url(fn (Participant $record): string => class_basename($record->participant_type) == 'Gamer' ? route('gamer.show', ['gamer' => $record->participant]) : route('club.show', ['club' => $record->participant]))
+                    ->url(fn (Participant $record): string => class_basename($record->participant_type) == 'Gamer' ? route('gamer.show', ['gamer' => $record->participant]) : route('clubs.show', ['club' => $record->participant]))
                     ->icon('heroicon-o-eye')
                     ->openUrlInNewTab(),
             ])

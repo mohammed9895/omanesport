@@ -22,7 +22,7 @@ class EnsureUserHasClub
 
             // Prevent loop
             if (!$user->club()->exists() && !$request->routeIs('club.create')) {
-                return redirect()->route('club.create');
+                return redirect()->route('club.onboarding');
             }
         }
 

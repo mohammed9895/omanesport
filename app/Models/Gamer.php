@@ -18,7 +18,7 @@ class Gamer extends Model
 
     public function members()
     {
-        return $this->belongsToMany(Member::class);
+        return $this->hasMany(Member::class);
     }
 
     public function games()
@@ -30,5 +30,9 @@ class Gamer extends Model
     public function competitions()
     {
         return $this->morphToMany(Competition::class, 'participant', 'competition_participants');
+    }
+
+    public function member() {
+        return $this->members()->first();
     }
 }

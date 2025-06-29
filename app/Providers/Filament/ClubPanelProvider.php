@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Http\Middleware\EnsureClubActive;
 use App\Http\Middleware\EnsureUserHasClub;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -56,6 +57,7 @@ class ClubPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
                  EnsureUserHasClub::class,
+                EnsureClubActive::class,
             ])
             ->viteTheme('resources/css/filament/club/theme.css')
             ->registration()

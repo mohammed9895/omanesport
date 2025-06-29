@@ -2,11 +2,14 @@
 
 namespace App\Filament\Admin\Resources;
 
+use App\Enums\ClubStatus;
 use App\Filament\Admin\Resources\ClubResource\Pages;
 use App\Filament\Admin\Resources\ClubResource\RelationManagers;
+use App\Jobs\SendClubStatusUpdateEmail;
 use App\Models\Club;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -25,6 +28,7 @@ class ClubResource extends Resource
             ->schema([
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
+                    ->searchable(['name', 'email'])
                     ->columnSpanFull()
                     ->required(),
                 Forms\Components\TextInput::make('name')
@@ -111,12 +115,39 @@ class ClubResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
-                Tables\Actions\Action::make('view-club')
-                    ->label('View Club')
-                    ->url(fn (Club $record): string => route('club.show', ['club' => $record]))
-                    ->openUrlInNewTab()
-                    ->icon('heroicon-o-eye')
-                    ->openUrlInNewTab(),
+                Tables\Actions\Action::make('approve-club')
+                    ->label('Approve Club')
+                    ->color('success')
+                    ->icon('heroicon-o-check-circle')
+                    ->action(function (Club $record) {
+                        $record->update(['status' => ClubStatus::Approved]);
+                        // Dispatch a job to send email notification
+                         dispatch(new SendClubStatusUpdateEmail($record->user, $record));
+                        Notification::make()
+                            ->title('Club Approved')
+                            ->success()
+                            ->send();
+                    })
+                    ->requiresConfirmation(),
+                Tables\Actions\Action::make('reject-club')
+                ->label('Reject Club')
+                    ->color('danger')
+                    ->icon('heroicon-o-x-circle')
+                ->action(function (Club $record) {
+                    $record->update(['status' => ClubStatus::Rejected]);
+                    // Dispatch a job to send email notification
+                    dispatch(new SendClubStatusUpdateEmail($record->user, $record));
+                    Notification::make()
+                        ->title('Club Rejected')
+                        ->success()
+                        ->send();
+                })->requiresConfirmation(),
+//                Tables\Actions\Action::make('view-club')
+//                    ->label('View Club')
+//                    ->url(fn (Club $record): string => route('clubs.show', ['club' => $record->username]))
+//                    ->openUrlInNewTab()
+//                    ->icon('heroicon-o-eye')
+//                    ->openUrlInNewTab(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
