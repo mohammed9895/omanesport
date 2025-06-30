@@ -8,10 +8,10 @@
                 {{ __('general.hero_description') }}
             </p>
             <div class="flex justify-center items-center mt-8 space-x-5 rtl:space-x-reverse">
-                <a href="" class="px-12 transition-all ease-in-out py-5 bg-gradient-to-t from-brand-sky-level-400 to-brand-sky-level-200 lg:text-lg border-2 border-white/10 shadow-inner font-bold hover:-translate-y-1">
+                <a href="/gamer/register" class="px-12 transition-all ease-in-out py-5 bg-gradient-to-t from-brand-sky-level-400 to-brand-sky-level-200 lg:text-lg border-2 border-white/10 shadow-inner font-bold hover:-translate-y-1">
                     {{ __('general.register_now') }}
                 </a>
-                <a href="#" class="px-12 py-5 lg:text-lg transition ease-in-out bg-white/20 border border-white font-bold hover:bg-white hover:text-gray-900">
+                <a href="#about" class="px-12 py-5 lg:text-lg transition ease-in-out bg-white/20 border border-white font-bold hover:bg-white hover:text-gray-900">
                     {{ __('general.more_information') }}
                 </a>
             </div>
@@ -81,7 +81,7 @@
     </section>
 
 
-    <section class="w-full relative mt-20 py-52 after:content[''] after:w-full after:h-full after:absolute after:bottom-0 after:left-0 rtl:after:right-0 rtl:after:left-auto after:bg-gradient-to-r after:from-brand-sky-level-900 after:via-brand-sky-level-900/95 after:to-transparent after:z-10" style="background: url('{{ asset('images/about-3.jpg') }}'); background-size: cover; background-position: center;">
+    <section id="about" class="w-full relative mt-20 py-52 after:content[''] after:w-full after:h-full after:absolute after:bottom-0 after:left-0 rtl:after:right-0 rtl:after:left-auto after:bg-gradient-to-r after:from-brand-sky-level-900 after:via-brand-sky-level-900/95 after:to-transparent after:z-10" style="background: url('{{ asset('images/about-3.jpg') }}'); background-size: cover; background-position: center;">
         <div class="container mx-auto z-30 relative">
             <div class="max-w-3xl">
                 <h1 class="text-4xl uppercase text-white font-bold tracking-wider rtl:tracking-normal leading-relaxed">

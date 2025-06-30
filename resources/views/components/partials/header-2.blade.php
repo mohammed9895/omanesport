@@ -35,7 +35,7 @@
                        class="inline-block uppercase text-gray-200 hover:text-white py-7 px-5 tracking-wider mr-7 rtl:ml-7 rtl:mr-0">AR</a>
                 @endif
             </nav>
-            <a href="#" class="hidden lg:block px-6 py-3 bg-gradient-to-t text-white from-brand-sky-level-400 to-brand-sky-level-200 text-lg border-2 border-white/10 shadow-inner font-bold transition-all hover:-translate-y-1">
+            <a href="/club/login" class="hidden lg:block px-6 py-3 bg-gradient-to-t text-white from-brand-sky-level-400 to-brand-sky-level-200 text-lg border-2 border-white/10 shadow-inner font-bold transition-all hover:-translate-y-1">
                 {{ __('general.login_now') }}
             </a>
             <div class="lg:hidden">
@@ -79,7 +79,7 @@
                class="inline-block uppercase text-gray-200 hover:text-white py-5 border-b-2 {{ Route::is('contact.*') ? 'border-white' : 'border-transparent' }} px-5 tracking-wider rtl:tracking-normal">
                 {{ __('general.nav_contact') }}
             </a>
-            <a href="#" class=" text-center px-6 py-3 mt-3 bg-gradient-to-t text-white from-brand-sky-level-400 to-brand-sky-level-200 text-lg border-2 border-white/10 shadow-inner font-bold transition-all hover:-translate-y-1">
+            <a href="/club/login" class=" text-center px-6 py-3 mt-3 bg-gradient-to-t text-white from-brand-sky-level-400 to-brand-sky-level-200 text-lg border-2 border-white/10 shadow-inner font-bold transition-all hover:-translate-y-1">
                 {{ __('general.login_now') }}
             </a>
         </nav>
