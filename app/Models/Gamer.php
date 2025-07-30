@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Gamer extends Model
 {
+    use HasFactory;
     protected $guarded = [];
 
     /**
@@ -35,4 +37,14 @@ class Gamer extends Model
     public function member() {
         return $this->members()->first();
     }
+
+    public function competitionGroups()
+    {
+        return $this->morphToMany(
+            \App\Models\CompetitionGroup::class,
+            'participant',
+            'competition_group_participants'
+        )->withTimestamps();
+    }
+
 }

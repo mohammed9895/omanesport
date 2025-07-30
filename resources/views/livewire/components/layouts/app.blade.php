@@ -42,13 +42,14 @@
 </head>
 
 <body class="antialiased bg-brand-sky-level-900" {{ app()->getLocale() == 'ar' ? 'font-ar' : 'font-en' }}">
-@include('components.partials.header-2')
+@include('components.partials.header')
 {{ $slot }}
 
 @livewire('notifications')
-@include('components.partials.footer-2')
+@include('components.partials.footer')
 @filamentScripts
 @vite('resources/js/app.js')
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 
 </body>
 </html>

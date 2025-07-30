@@ -131,6 +131,9 @@ class Onboarding extends Component implements HasForms
             $data // Fillable fields from form
         );
 
+        // assign the user to the club
+        $user->assignRole('gamer');
+
 
         redirect()->route('filament.gamer.pages.dashboard'); // Change route as needed
     }

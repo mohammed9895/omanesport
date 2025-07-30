@@ -67,6 +67,7 @@ return [
     'nav_clubs' => 'الأندية',
     'nav_contact' => 'تواصل معنا',
     'login_now' => 'تسجيل الدخول',
+    'dashboard' => 'لوحة التحكم',
 
     'news_page_heading' => 'الأخبار والمقالات',
 

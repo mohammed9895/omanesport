@@ -120,6 +120,9 @@ class Onboarding extends Component implements HasForms
         );
 
 
+        // assign the user to the club
+        $user->assignRole('club');
+
         SendClubWelcomeEmail::dispatch($user);
 
         redirect()->route('filament.club.pages.dashboard'); // Change route as needed

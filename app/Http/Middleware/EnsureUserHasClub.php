@@ -21,7 +21,7 @@ class EnsureUserHasClub
             $user = Auth::user();
 
             // Prevent loop
-            if (!$user->club()->exists() && !$request->routeIs('club.create')) {
+            if (!$user->club()->exists() && !$request->routeIs('club.onboarding')) {
                 return redirect()->route('club.onboarding');
             }
         }

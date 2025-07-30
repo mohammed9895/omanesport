@@ -67,6 +67,7 @@ return [
     'nav_clubs' => 'Clubs',
     'nav_contact' => 'Contact Us',
     'login_now' => 'Login Now',
+    'dashboard' => 'Dashboard',
 
     'news_page_heading' => 'News & Articles',
 

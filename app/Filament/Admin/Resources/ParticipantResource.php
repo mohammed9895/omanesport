@@ -21,7 +21,7 @@ class ParticipantResource extends Resource
 {
     protected static ?string $model = Participant::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'hugeicons-edit-user-02';
 
     public static function form(Form $form): Form
     {
@@ -62,6 +62,10 @@ class ParticipantResource extends Resource
                     ->badge()
                     ->formatStateUsing(fn (Model $record) => class_basename($record->participant_type))
                     ->searchable(),
+                Tables\Columns\TextColumn::make('participant.club')
+                    ->label('Club Name')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

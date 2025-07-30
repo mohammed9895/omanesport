@@ -17,7 +17,7 @@ class CompetitionCategoryResource extends Resource
 {
     protected static ?string $model = CompetitionCategory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'hugeicons-catalogue';
 
     public static function form(Form $form): Form
     {

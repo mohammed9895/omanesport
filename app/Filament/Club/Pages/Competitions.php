@@ -32,7 +32,7 @@ class Competitions extends Page
                 ->send();
         }
 
-        $competition->gamers()->attach(auth()->user()->gamer->id, [
+        $competition->clubs()->attach(auth()->user()->club->id, [
             'created_at' => now(),
             'updated_at' => now(),
         ]);

@@ -18,7 +18,7 @@ class CompetitionResource extends Resource
 {
     protected static ?string $model = Competition::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-trophy';
 
     public static function form(Form $form): Form
     {
@@ -26,7 +26,7 @@ class CompetitionResource extends Resource
             ->schema([
                 Forms\Components\Group::make([
                     Forms\Components\TextInput::make('name')
-                        ->live()
+                        ->live('true')
                         ->maxLength(255)
                         ->afterStateUpdated(function (string $state, callable $set) {
                             $set('slug', str($state)->slug());
@@ -55,11 +55,11 @@ class CompetitionResource extends Resource
                         ->preload(),
                     Forms\Components\TextInput::make('location')
                         ->maxLength(255),
+                    Forms\Components\TextInput::make('number_of_players')
+                        ->numeric(),
                     Forms\Components\TextInput::make('number_of_winners')
                         ->numeric(),
                 ])->columns(2)->columnSpanFull(),
-
-
 
                 Forms\Components\RichEditor::make('description')
                     ->columnSpanFull(),
@@ -120,7 +120,7 @@ class CompetitionResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\MatchesRelationManager::class,
         ];
     }
 

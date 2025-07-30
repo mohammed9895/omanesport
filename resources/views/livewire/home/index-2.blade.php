@@ -8,9 +8,23 @@
                 {{ __('general.hero_description') }}
             </p>
             <div class="flex justify-center items-center mt-8 space-x-5 rtl:space-x-reverse">
-                <a href="/gamer/register" class="px-12 transition-all ease-in-out py-5 bg-gradient-to-t from-brand-sky-level-400 to-brand-sky-level-200 lg:text-lg border-2 border-white/10 shadow-inner font-bold hover:-translate-y-1">
-                    {{ __('general.register_now') }}
+                <a id="dropdownDefaultButton" data-dropdown-toggle="heroDropdown" class="flex px-12 transition-all items-center justify-center ease-in-out py-5 bg-gradient-to-t from-brand-sky-level-400 to-brand-sky-level-200  border-2 border-white/10 shadow-inner font-bold hover:-translate-y-1 space-x-2 rtl:space-x-reverse">
+                    <div class="lg:text-lg">{{ __('general.register_now') }}</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                    </svg>
                 </a>
+                <!-- Dropdown menu -->
+                <div id="heroDropdown" class="z-10 hidden bg-brand-sky-level-800 divide-y divide-red-500 shadow-sm w-44">
+                    <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                            <a href="{{ route('filament.club.auth.register') }}" class="block px-4 py-2 text-brand-sky-level-400 hover:bg-brand-sky-level-700 hover:text-white">{{ __('footer.links.club_register') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('filament.gamer.auth.register') }}" class="block px-4 py-2 text-brand-sky-level-400 hover:bg-brand-sky-level-700 hover:text-white">{{ __('footer.links.gamer_register') }}</a>
+                        </li>
+                    </ul>
+                </div>
                 <a href="#about" class="px-12 py-5 lg:text-lg transition ease-in-out bg-white/20 border border-white font-bold hover:bg-white hover:text-gray-900">
                     {{ __('general.more_information') }}
                 </a>

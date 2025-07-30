@@ -28,7 +28,17 @@ class Competition extends Model
 
     public function participants()
     {
-        return $this->morphToMany(null, 'participant', 'competition_participants');
+        return $this->morphedByMany(Gamer::class, 'participant', 'competition_participants')->withTimestamps();
+    }
+
+    public function matches()
+    {
+        return $this->hasMany(CompetitionMatch::class);
+    }
+
+    public function groups()
+    {
+        return $this->hasMany(CompetitionGroup::class);
     }
 
     public function gamers()

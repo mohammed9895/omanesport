@@ -1,55 +1,108 @@
-<!-- ========== HEADER ========== -->
-<header class="absolute top-4 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full before:absolute before:inset-0 before:max-w-5xl before:mx-2 lg:before:mx-auto before:rounded-[26px] before:bg-slate-400/20 before:backdrop-blur-md">
-    <nav class="relative max-w-5xl w-full flex flex-wrap md:flex-nowrap basis-full items-center justify-between py-2 ps-5 pe-2 md:py-0 mx-2 lg:mx-auto">
-        <div class="flex items-center">
-            <!-- Logo -->
-            <a class="flex-none rounded-md text-xl inline-block font-semibold focus:outline-hidden focus:opacity-80" href="/" aria-label="Preline">
-               <img src="{{ asset('images/logo.svg') }}" class="w-16">
+<header class="container max-w-7xl mx-auto relative" x-data="{menuOpen: false}">
+    <div class="flex justify-between items-center absolute w-full top-0 left-0 z-30 bg-black/30 border border-white/30 px-5 mt-6">
+        <div class="py-5 lg:py-0">
+            <a href="{{ route('home.index') }}" class="text-2xl font-bold text-gray-800 dark:text-white">
+                <img src="{{ asset('images/logo-white.png') }}" class="h-12" alt="">
             </a>
-            <!-- End Logo -->
         </div>
-
-        <!-- Button Group -->
-        <div class="md:order-3 flex items-center gap-x-3">
-            <div class="md:ps-3">
-               @guest
-                    <a class="group inline-flex items-center gap-x-2 py-2 px-3 bg-brand-pink font-medium text-sm text-nowrap text-white rounded-full focus:outline-hidden" href="{{ route('filament.gamer.auth.login') }}">
-                        Login Now
-                    </a>
-                @endguest
-                @auth
-                    <a class="group inline-flex items-center gap-x-2 py-2 px-3 bg-brand-pink font-medium text-sm text-nowrap text-white rounded-full focus:outline-hidden" href="{{ route('filament.gamer.auth.login') }}">
-                        Dashboard
-                    </a>
-                   @endauth
-            </div>
-
-            <div class="md:hidden">
-                <button type="button" class="hs-collapse-toggle size-9 flex justify-center items-center text-sm font-semibold rounded-full bg-slate-800 text-white disabled:opacity-50 disabled:pointer-events-none" id="hs-navbar-floating-dark-collapse" aria-expanded="false" aria-controls="hs-navbar-floating-dark" aria-label="Toggle navigation" data-hs-collapse="#hs-navbar-floating-dark">
-                    <svg class="hs-collapse-open:hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="3" x2="21" y1="6" y2="6" />
-                        <line x1="3" x2="21" y1="12" y2="12" />
-                        <line x1="3" x2="21" y1="18" y2="18" />
+        <div class="flex items-center">
+            <nav class="hidden lg:block">
+                <a href="{{ route('home.index') }}"
+                   class="inline-block uppercase text-gray-200 hover:text-white py-7 border-b-2 {{ Route::is('home.index') ? 'border-white' : 'border-transparent' }} px-5 tracking-wider rtl:tracking-normal">
+                    {{ __('general.nav_home') }}
+                </a>
+                <a href="{{ route('news.index') }}"
+                   class="inline-block uppercase text-gray-200 hover:text-white py-7 border-b-2 {{ Route::is('news.*') ? 'border-white' : 'border-transparent' }} px-5 tracking-wider rtl:tracking-normal">
+                    {{ __('general.nav_news') }}
+                </a>
+                <a href="{{ route('competitions.index') }}"
+                   class="inline-block uppercase text-gray-200 hover:text-white py-7 border-b-2 {{ Route::is('competitions.*') ? 'border-white' : 'border-transparent' }} px-5 tracking-wider rtl:tracking-normal">
+                    {{ __('general.nav_competitions') }}
+                </a>
+                <a href="{{ route('clubs.index') }}"
+                   class="inline-block uppercase text-gray-200 hover:text-white py-7 border-b-2 {{ Route::is('clubs.*') ? 'border-white' : 'border-transparent' }} px-5 tracking-wider rtl:tracking-normal">
+                    {{ __('general.nav_clubs') }}
+                </a>
+                <a href="{{ route('contact.index') }}"
+                   class="inline-block uppercase text-gray-200 hover:text-white py-7 border-b-2 {{ Route::is('contact.*') ? 'border-white' : 'border-transparent' }} px-5 tracking-wider rtl:tracking-normal">
+                    {{ __('general.nav_contact') }}
+                </a>
+                @if(session()->get('lang') == 'ar')
+                    <a href="{{ route('locale', 'en') }}"
+                       class="inline-block uppercase text-gray-200 hover:text-white py-7 px-5 tracking-wider mr-7 rtl:ml-7 rtl:mr-0">EN</a>
+                @else
+                    <a href="{{ route('locale', 'ar') }}"
+                       class="inline-block uppercase text-gray-200 hover:text-white py-7 px-5 tracking-wider mr-7 rtl:ml-7 rtl:mr-0">AR</a>
+                @endif
+            </nav>
+            @auth
+                <a href="{{ route('filament.gamer.pages.dashboard') }}" class="hidden lg:block px-6 py-3 bg-gradient-to-t text-white from-brand-sky-level-400 to-brand-sky-level-200 text-lg border-2 border-white/10 shadow-inner font-bold transition-all hover:-translate-y-1">
+                    {{ __('general.dashboard') }}
+                </a>
+            @endauth
+            @guest
+                <a id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="hidden lg:flex items-center space-x-2 rtl:space-x-reverse px-6 py-3 bg-gradient-to-t text-white from-brand-sky-level-400 to-brand-sky-level-200 text-lg border-2 border-white/10 shadow-inner font-bold transition-all hover:-translate-y-1 cursor-pointer">
+                    <div class="lg:text-lg">{{ __('general.login_now') }}</div>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                     </svg>
-                    <svg class="hs-collapse-open:block hidden shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M18 6 6 18" />
-                        <path d="m6 6 12 12" />
+                </a>
+                <!-- Dropdown menu -->
+                <div id="dropdown" class="z-10 hidden bg-brand-sky-level-800 divide-y divide-red-500 shadow-sm w-44">
+                    <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
+                        <li>
+                            <a href="{{ route('filament.club.auth.login') }}" class="block px-4 py-2 text-brand-sky-level-400 hover:bg-brand-sky-level-700 hover:text-white">{{ __('footer.links.club_login') }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('filament.gamer.auth.login') }}" class="block px-4 py-2 text-brand-sky-level-400 hover:bg-brand-sky-level-700 hover:text-white">{{ __('footer.links.gamer_login') }}</a>
+                        </li>
+                    </ul>
+                </div>
+            @endguest
+            <div class="lg:hidden">
+                @if(session()->get('lang') == 'ar')
+                    <a href="{{ route('locale', 'en') }}"
+                       class="inline-block uppercase text-gray-200 hover:text-white py-5 px-5 tracking-wider mr-1 rtl:ml-1 rtl:mr-0">EN</a>
+                @else
+                    <a href="{{ route('locale', 'ar') }}"
+                       class="inline-block uppercase text-gray-200 hover:text-white py-5 px-5 tracking-wider mr-1 rtl:ml-1 rtl:mr-0">AR</a>
+                @endif
+            </div>
+            <div>
+                <button @click="menuOpen = !menuOpen" class="lg:hidden text-gray-200 hover:text-white focus:outline-none   p-2 bg-gradient-to-t text-white from-brand-sky-level-400 to-brand-sky-level-200" id="mobile-menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                     </svg>
                 </button>
             </div>
-        </div>
-        <!-- End Button Group -->
 
-        <!-- Collapse -->
-        <div id="hs-navbar-floating-dark" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block" aria-labelledby="hs-navbar-floating-dark-collapse">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-end gap-y-3 py-2 md:py-0 md:ps-7">
-                <a class="pe-3 ps-px sm:px-3 md:py-4 text-sm text-slate-600 hover:text-800 focus:outline-hidden focus:text-slate-300" href="/" aria-current="page">Home</a>
-                <a class="pe-3 ps-px sm:px-3 md:py-4 text-sm text-slate-600 hover:text-slate-800 focus:outline-hidden focus:text-slate-300" href="{{ route('competitions.index') }}">Competitions</a>
-                <a class="pe-3 ps-px sm:px-3 md:py-4 text-sm text-slate-600 hover:text-slate-800 focus:outline-hidden focus:text-slate-300" href="{{ route('news.index') }}">News</a>
-                <a class="pe-3 ps-px sm:px-3 md:py-4 text-sm text-slate-600 hover:text-slate-800 focus:outline-hidden focus:text-slate-300" href="#contact">Contact us</a>
-            </div>
         </div>
-        <!-- End Collapse -->
-    </nav>
+    </div>
+    <div class="lg:hidden flex justify-between items-center z-30 bg-brand-sky-level-900 border border-white/30 px-5 absolute top-32 left-0 w-full" x-show="menuOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform -translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform -translate-y-4">
+        <nav class="lg:hidden flex flex-col w-full pb-5">
+            <a href="{{ route('home.index') }}"
+               class="inline-block w-full uppercase text-gray-200 hover:text-white py-5 border-b-2 {{ Route::is('home.index') ? 'border-white' : 'border-transparent' }} px-5 tracking-wider rtl:tracking-normal">
+                {{ __('general.nav_home') }}
+            </a>
+            <a href="{{ route('news.index') }}"
+               class="inline-block uppercase text-gray-200 hover:text-white py-5 border-b-2 {{ Route::is('news.*') ? 'border-white' : 'border-transparent' }} px-5 tracking-wider rtl:tracking-normal">
+                {{ __('general.nav_news') }}
+            </a>
+            <a href="{{ route('competitions.index') }}"
+               class="inline-block uppercase text-gray-200 hover:text-white py-5 border-b-2 {{ Route::is('competitions.*') ? 'border-white' : 'border-transparent' }} px-5 tracking-wider rtl:tracking-normal">
+                {{ __('general.nav_competitions') }}
+            </a>
+            <a href="{{ route('clubs.index') }}"
+               class="inline-block uppercase text-gray-200 hover:text-white py-5 border-b-2 {{ Route::is('clubs.*') ? 'border-white' : 'border-transparent' }} px-5 tracking-wider rtl:tracking-normal">
+                {{ __('general.nav_clubs') }}
+            </a>
+            <a href="{{ route('contact.index') }}"
+               class="inline-block uppercase text-gray-200 hover:text-white py-5 border-b-2 {{ Route::is('contact.*') ? 'border-white' : 'border-transparent' }} px-5 tracking-wider rtl:tracking-normal">
+                {{ __('general.nav_contact') }}
+            </a>
+            <a href="/club/login" class=" text-center px-6 py-3 mt-3 bg-gradient-to-t text-white from-brand-sky-level-400 to-brand-sky-level-200 text-lg border-2 border-white/10 shadow-inner font-bold transition-all hover:-translate-y-1">
+                {{ __('general.login_now') }}
+            </a>
+        </nav>
+    </div>
 </header>
-<!-- ========== END HEADER ========== -->

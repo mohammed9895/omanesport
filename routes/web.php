@@ -43,3 +43,7 @@ Route::get('send/email', function () {
 
     return 'Email sent successfully!';
 });
+
+
+Route::get('bracket/{competition:slug}', \App\Livewire\Competition\Bracket::class)
+    ->name('competitions.bracket');
